@@ -3,7 +3,12 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 
 export const {
   handlers: { GET, POST },
+  auth,
 } = NextAuth({
+  pages: {
+    signIn: '/i/flow/login',
+    newUser: '/i/flow/signup',
+  },
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
@@ -14,7 +19,10 @@ export const {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(credentials),
+            body: JSON.stringify({
+              id: credentials.username,
+              password: credentials.password,
+            }),
           },
         );
 
