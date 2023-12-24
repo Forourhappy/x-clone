@@ -1,8 +1,9 @@
 'use server';
 
 import { redirect } from 'next/navigation';
+import { signIn } from '@/auth';
 
-export const onSubmit = async (
+export default async (
   prevState: { message: string | null },
   formData: FormData,
 ) => {
@@ -35,19 +36,26 @@ export const onSubmit = async (
         credentials: 'include',
       },
     );
+    console.log('결과: ', response.status);
     console.log(response.status);
     if (response.status === 403) {
       return { message: 'user_exists' };
     }
     console.log(await response.json());
     shouldRedirect = true;
+
+    await signIn('credentials', {
+      redirect: false,
+      username: formData.get('id'),
+      password: formData.get('password'),
+    });
   } catch (err) {
-    console.error(err);
+    console.dir(err, { depth: 3 });
   }
+
   // try/catch 안에서 사용 X
   if (shouldRedirect) {
     redirect('/home');
   }
-
   return { message: null };
 };

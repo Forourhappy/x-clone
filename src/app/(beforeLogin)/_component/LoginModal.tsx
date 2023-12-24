@@ -2,21 +2,22 @@
 
 import style from '@/app/(beforeLogin)/_component/login.module.css';
 import { ChangeEventHandler, FormEventHandler, useState } from 'react';
-import { router } from 'next/client';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export default function LoginModal() {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const router = useRouter();
   const onSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
     setMessage('');
     try {
       await signIn('credentials', {
-        redirect: false,
         username: id,
         password,
+        redirect: false,
       });
       router.replace('/home');
     } catch (err) {
