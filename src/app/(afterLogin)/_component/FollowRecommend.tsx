@@ -13,7 +13,7 @@ export default function FollowRecommend({ user }: Props) {
     <div className={style.container}>
       <div className={style.userLogoSection}>
         <div className={style.userLogo}>
-          <img src={user.image} alt={user.id.toString()} />
+          <img src={user.image} alt={'' + user.id} />
         </div>
       </div>
       <div className={style.userInfo}>
