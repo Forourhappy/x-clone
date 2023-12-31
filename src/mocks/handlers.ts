@@ -11,6 +11,7 @@ const generateDate = () => {
 };
 
 const User = [
+  { nickname: '포', id: 'forourhappy', image: '/5Udwvqim.jpg' },
   { id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg' },
   { id: 'zerohch0', nickname: '제로초', image: '/5Udwvqim.jpg' },
   { id: 'leoturtle', nickname: '레오', image: faker.image.avatar() },
@@ -19,19 +20,11 @@ const User = [
 export const handlers = [
   http.post('/api/login', () => {
     console.log('로그인');
-    return HttpResponse.json(
-      {
-        userId: 1,
-        nickname: '포',
-        id: 'forourhappy',
-        image: '/5Udwvqim.jpg',
+    return HttpResponse.json(User[0], {
+      headers: {
+        'Set-Cookie': 'connect.sid=msw-cookie;HttpOnly;Path=/',
       },
-      {
-        headers: {
-          'Set-Cookie': 'connect.sid=msw-cookie;HttpOnly;Path=/',
-        },
-      },
-    );
+    });
   }),
   http.post('/api/logout', () => {
     console.log('로그아웃');
