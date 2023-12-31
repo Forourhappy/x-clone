@@ -6,16 +6,17 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const RQProvider = ({ children }: { children: ReactNode }) => {
   const [client] = useState(
-    new QueryClient({
-      defaultOptions: {
-        queries: {
-          refetchOnWindowFocus: false,
-          refetchOnMount: true,
-          refetchOnReconnect: false,
-          retry: false,
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+            refetchOnMount: true,
+            refetchOnReconnect: false,
+            retry: false,
+          },
         },
-      },
-    }),
+      }),
   );
   return (
     <QueryClientProvider client={client}>

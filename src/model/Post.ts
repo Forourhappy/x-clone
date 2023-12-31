@@ -3,8 +3,8 @@ import { PostImage } from '@/model/PostImage';
 
 export interface Post {
   postId: number;
-  user: User;
+  User: User;
   content: string;
   createdAt: Date;
-  images: PostImage[];
+  Images: PostImage[];
 }

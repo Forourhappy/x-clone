@@ -22,7 +22,6 @@ const UserInfo = ({ username }: Props) => {
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
   });
-  console.log(error);
   if (error) {
     return (
       <>
@@ -52,7 +51,7 @@ const UserInfo = ({ username }: Props) => {
       </div>
       <div className={style.userZone}>
         <div className={style.userImage}>
-          <img src={user.image} alt={user.id} />
+          <img src={user.image} alt={'' + user.id} />
         </div>
         <div className={style.userName}>
           <div>{user.nickname}</div>
