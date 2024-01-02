@@ -1,4 +1,6 @@
-export const getFollowingPosts = async () => {
+import { Post } from '@/model/Post';
+
+export const getFollowingPosts = async (): Promise<Post[]> => {
   const res = await fetch('http://localhost:9090/api/followingPosts', {
     next: { tags: ['posts', 'followings'] },
     cache: 'no-store',

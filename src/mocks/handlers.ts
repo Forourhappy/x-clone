@@ -1,4 +1,4 @@
-import { http, HttpResponse, StrictResponse } from 'msw';
+import { delay, http, HttpResponse, StrictResponse } from 'msw';
 import { faker } from '@faker-js/faker';
 
 const generateDate = () => {
@@ -43,9 +43,10 @@ export const handlers = [
       },
     });
   }),
-  http.get('/api/postRecommends', async ({request}) => {
+  http.get('/api/postRecommends', async ({ request }) => {
     const url = new URL(request.url);
     const cursor = parseInt(url.searchParams.get('cursor') as string) || 0;
+    await delay(3000);
     return HttpResponse.json([
       {
         postId: cursor + 1,
@@ -55,7 +56,7 @@ export const handlers = [
         createdAt: generateDate(),
       },
       {
-        postId: cursor + 1,
+        postId: cursor + 2,
         User: User[0],
         content: `${cursor + 2} recommends post`,
         Images: [
@@ -65,14 +66,14 @@ export const handlers = [
         createdAt: generateDate(),
       },
       {
-        postId: cursor + 1,
+        postId: cursor + 3,
         User: User[0],
         content: `${cursor + 3} recommends post`,
         Images: [],
         createdAt: generateDate(),
       },
       {
-        postId: cursor + 1,
+        postId: cursor + 4,
         User: User[0],
         content: `${cursor + 4} recommends post`,
         Images: [
@@ -84,7 +85,7 @@ export const handlers = [
         createdAt: generateDate(),
       },
       {
-        postId: cursor + 1,
+        postId: cursor + 5,
         User: User[0],
         content: `${cursor + 5} follow me!`,
         Images: [
@@ -96,7 +97,8 @@ export const handlers = [
       },
     ]);
   }),
-  http.get('/api/followingPosts', () => {
+  http.get('/api/followingPosts', async () => {
+    await delay(3000);
     return HttpResponse.json([
       {
         postId: 1,

@@ -1,19 +1,20 @@
 'use client';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import Post from '@/app/(afterLogin)/_component/Post';
 import { getPostRecommends } from '@/app/(afterLogin)/home/_lib/getPostRecommends';
 import { Fragment, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 const PostRecommends = () => {
-  const { data, isFetching, fetchNextPage, hasNextPage } = useInfiniteQuery({
-    queryKey: ['posts', 'recommends'],
-    queryFn: getPostRecommends,
-    initialPageParam: 0,
-    getNextPageParam: (lastPage) => lastPage.at(-1)?.postId,
-    staleTime: 60 * 1000,
-    gcTime: 300 * 1000,
-  });
+  const { data, isFetching, fetchNextPage, hasNextPage } =
+    useSuspenseInfiniteQuery({
+      queryKey: ['posts', 'recommends'],
+      queryFn: getPostRecommends,
+      initialPageParam: 0,
+      getNextPageParam: (lastPage) => lastPage.at(-1)?.postId,
+      staleTime: 60 * 1000,
+      gcTime: 300 * 1000,
+    });
   const { ref, inView } = useInView({
     threshold: 0,
     delay: 0,
@@ -24,6 +25,7 @@ const PostRecommends = () => {
       fetchNextPage();
     }
   }, [inView, isFetching, hasNextPage, fetchNextPage]);
+
   return (
     <>
       {data?.pages.map((page, index) => (
