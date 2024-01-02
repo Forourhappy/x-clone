@@ -43,19 +43,21 @@ export const handlers = [
       },
     });
   }),
-  http.get('/api/postRecommends', async () => {
+  http.get('/api/postRecommends', async ({request}) => {
+    const url = new URL(request.url);
+    const cursor = parseInt(url.searchParams.get('cursor') as string) || 0;
     return HttpResponse.json([
       {
-        postId: 1,
+        postId: cursor + 1,
         User: User[0],
-        content: `${1} recommends post`,
+        content: `${cursor + 1} recommends post`,
         Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
         createdAt: generateDate(),
       },
       {
-        postId: 2,
+        postId: cursor + 1,
         User: User[0],
-        content: `${2} recommends post`,
+        content: `${cursor + 2} recommends post`,
         Images: [
           { imageId: 1, link: faker.image.urlLoremFlickr() },
           { imageId: 2, link: faker.image.urlLoremFlickr() },
@@ -63,16 +65,16 @@ export const handlers = [
         createdAt: generateDate(),
       },
       {
-        postId: 3,
+        postId: cursor + 1,
         User: User[0],
-        content: `${3} recommends post`,
+        content: `${cursor + 3} recommends post`,
         Images: [],
         createdAt: generateDate(),
       },
       {
-        postId: 4,
+        postId: cursor + 1,
         User: User[0],
-        content: `${4} recommends post`,
+        content: `${cursor + 4} recommends post`,
         Images: [
           { imageId: 1, link: faker.image.urlLoremFlickr() },
           { imageId: 2, link: faker.image.urlLoremFlickr() },
@@ -82,9 +84,9 @@ export const handlers = [
         createdAt: generateDate(),
       },
       {
-        postId: 5,
+        postId: cursor + 1,
         User: User[0],
-        content: `${5} follow me!`,
+        content: `${cursor + 5} follow me!`,
         Images: [
           { imageId: 1, link: faker.image.urlLoremFlickr() },
           { imageId: 2, link: faker.image.urlLoremFlickr() },
