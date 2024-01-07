@@ -2,12 +2,12 @@
 
 import style from '@/app/(afterLogin)/[username]/profile.module.css';
 import BackButton from '@/app/(afterLogin)/_component/BackButton';
-import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { User } from '@/model/User';
-import { getUser } from '@/app/(afterLogin)/[username]/_lib/getUser';
 import cx from 'classnames';
 import { MouseEventHandler } from 'react';
 import { Session } from 'next-auth';
+import { getUserClient } from '@/app/(afterLogin)/[username]/_lib/getUserClient';
 
 type Props = {
   username: string;
@@ -21,7 +21,7 @@ export default function UserInfo({ username, session }: Props) {
     [_1: string, _2: string]
   >({
     queryKey: ['users', username],
-    queryFn: getUser,
+    queryFn: getUserClient,
     staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
     gcTime: 300 * 1000,
   });
