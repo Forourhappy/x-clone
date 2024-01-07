@@ -8,10 +8,11 @@ export const getPostRecommends = async ({
   pageParam,
 }: Props): Promise<Post[]> => {
   const res = await fetch(
-    `http://localhost:9090/api/postRecommends?cursor=${pageParam}`,
+    `http://localhost:9090/api/posts/Recommends?cursor=${pageParam}`,
     {
       next: { tags: ['posts', 'recommends'] },
       cache: 'no-store',
+      credentials: 'include',
     },
   );
 

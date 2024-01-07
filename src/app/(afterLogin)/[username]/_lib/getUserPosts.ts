@@ -9,6 +9,7 @@ export const getUserPosts: QueryFunction<
   const res = await fetch(`http://localhost:9090/api/users/${username}/posts`, {
     next: { tags: ['posts', 'recommends'] },
     cache: 'no-store',
+    credentials: 'include',
   });
 
   if (!res.ok) {

@@ -8,12 +8,11 @@ export const getSearchParams: QueryFunction<
   // eslint-disable-next-line no-unused-vars
   const [_1, _2, searchParams] = queryKey;
   const res = await fetch(
-    `http://localhost:9090/api/search/${
-      searchParams.q
-    }?${searchParams.toString()}`,
+    `http://localhost:9090/api/posts?${searchParams.toString()}`,
     {
       next: { tags: ['post', 'search', searchParams.q] },
       cache: 'no-store',
+      credentials: 'include',
     },
   );
 

@@ -1,7 +1,8 @@
 export const followRecommends = async () => {
-  const res = await fetch('http://localhost:9090/api/followRecommends', {
+  const res = await fetch('http://localhost:9090/api/users/followRecommends', {
     next: { tags: ['users', 'followRecommends'] },
     cache: 'no-store',
+    credentials: 'include',
   });
 
   if (!res.ok) {

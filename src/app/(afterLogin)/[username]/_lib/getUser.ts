@@ -8,6 +8,7 @@ export const getUser: QueryFunction<User, [_1: string, _2: string]> = async ({
   const res = await fetch(`http://localhost:9090/api/users/${username}`, {
     next: { tags: ['users', username] },
     cache: 'no-store',
+    credentials: 'include',
   });
 
   if (!res.ok) {
